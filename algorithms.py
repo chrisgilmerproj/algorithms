@@ -1,6 +1,6 @@
 #!/usr/local/bin/python
 
-import time
+import random, time
 
 def print_timing(func):
 	""" A decorator to determine how long an algorithm takes to complete """
@@ -8,9 +8,14 @@ def print_timing(func):
 		t1 = time.clock()
 		res = func(*arg,**kwargs)
 		t2 = time.clock()
-		print '%s took %0.3fms' % (func.func_name, (t2-t1)*1000.0)
+		print '%s\ttook %0.3fms' % (func.func_name, (t2-t1)*1000.0)
 		return res
 	return wrapper
+
+def gen_array(x):
+	l = []
+	for i in xrange(0,x): l.append(random.randint(1,x))
+	return l
 
 @print_timing
 def insertion_sort(A):
@@ -72,6 +77,13 @@ def bubble_sort(A):
 			if A[j] < A[j-1]:
 				A[j], A[j-1] = A[j-1], A[j]
 	return A
+
+
+def test(x):
+	A = gen_array(x)
+	insertion_sort(A)
+	merge_time(A)
+	bubble_sort(A)
 
 try:
 	from IPython.Shell import IPShellEmbed
