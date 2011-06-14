@@ -60,6 +60,19 @@ def merge_time(A):
 	""" Method for timing merge_sort """
 	return merge_sort(A)
 
+@print_timing
+def bubble_sort(A):
+	"""
+	Best:	 n
+	Average: n^2
+	Worst:	 n^2
+	"""
+	for i in range(0,len(A)-1):
+		for j in range(len(A)-1,i,-1):
+			if A[j] < A[j-1]:
+				A[j], A[j-1] = A[j-1], A[j]
+	return A
+
 try:
 	from IPython.Shell import IPShellEmbed
 	IPShellEmbed()(local_ns=locals())
