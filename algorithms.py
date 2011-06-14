@@ -28,7 +28,37 @@ def insertion_sort(A):
 		A[i+1] = key
 	return A
 
+def merge(left,right):
+	result = []
+	i,j = 0,0
+	while i < len(left) and j < len(right):
+		if left[i] < right[j]:
+			result.append(left[i])
+			i += 1
+		else:
+			result.append(right[j])
+			j += 1
+	result += left[i:]
+	result += right[j:]
+	return result
 
+def merge_sort(A):
+	"""
+	Best:	 nlogn
+	Average: nlogn
+	Worst:	 nlogn
+	"""
+	if len(A) < 2:
+		return A
+	middle = len(A)/2
+	left   = merge_sort(A[:middle])
+	right  = merge_sort(A[middle:])
+	return merge(left,right)
+
+@print_timing
+def merge_time(A):
+	""" Method for timing merge_sort """
+	return merge_sort(A)
 
 try:
 	from IPython.Shell import IPShellEmbed
@@ -36,3 +66,4 @@ try:
 except:
 	import code
 	code.interact()
+
