@@ -76,11 +76,28 @@ def bubble_sort(A):
 				A[j], A[j-1] = A[j-1], A[j]
 	return A
 
+@print_timing
+def quicksort_time(A):
+	return quicksort(A)
+
+def quicksort(A):
+	"""
+	Best:	 nlogn
+	Average: nlogn
+	Worst:	 n^2
+	"""
+	if A == []: return A
+	q = A.pop(random.randrange(len(A)))
+	left  = quicksort([l for l in A if l < q])
+	right = quicksort([l for l in A if l < q])
+	return left + [q] + right
+
 def test(x):
 	A = gen_array(x)
 	insertion_sort(A)
 	merge_time(A)
 	bubble_sort(A)
+	quicksort_time(A)
 
 try:
 	from IPython.Shell import IPShellEmbed
