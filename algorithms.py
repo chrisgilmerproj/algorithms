@@ -29,7 +29,6 @@ def insertion_sort(A):
 			A[i+1] = A[i]
 			i = i - 1
 		A[i+1] = key
-	return A
 
 def merge(left,right):
 	result = []
@@ -101,13 +100,22 @@ def selection_sort(A):
             q = y
       A[x], A[q] = A[q], A[x]
 
+@print_timing
+def python_sort(A):
+	A.sort()
+
 def test(x):
 	A = gen_array(x)
 	insertion_sort(A)
+
+	A = gen_array(x)
 	merge_time(A)
 	bubble_sort(A)
+	
+	A = gen_array(x)
 	quicksort_time(A)
 	selection_sort(A)
+	python_sort(A)
 
 try:
 	from IPython.Shell import IPShellEmbed
