@@ -92,12 +92,22 @@ def quicksort(A):
 	right = quicksort([l for l in A if l < q])
 	return left + [q] + right
 
+@print_timing
+def selection_sort(A):
+   for x in range(0, len(A)-1):
+      q = x
+      for y in range(x+1, len(A)):
+         if A[y] < A[q]:
+            q = y
+      A[x], A[q] = A[q], A[x]
+
 def test(x):
 	A = gen_array(x)
 	insertion_sort(A)
 	merge_time(A)
 	bubble_sort(A)
 	quicksort_time(A)
+	selection_sort(A)
 
 try:
 	from IPython.Shell import IPShellEmbed
