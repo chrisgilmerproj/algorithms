@@ -13,9 +13,7 @@ def print_timing(func):
 	return wrapper
 
 def gen_array(x):
-	l = []
-	for i in xrange(0,x): l.append(random.randint(1,x))
-	return l
+	return [random.randint(1,x) for i in xrange(0,x)]
 
 @print_timing
 def insertion_sort(A):
@@ -77,7 +75,6 @@ def bubble_sort(A):
 			if A[j] < A[j-1]:
 				A[j], A[j-1] = A[j-1], A[j]
 	return A
-
 
 def test(x):
 	A = gen_array(x)
