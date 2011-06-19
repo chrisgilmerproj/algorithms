@@ -47,18 +47,8 @@ def test_new_spelling():
 
 	assert new_spelling(7,"sch kn x xschrx cknnchc cyck xxceci") == "sk n z zskrks nchk sik zksesi"
 
-	assert new_spelling(7,"  concoction   convalescence   cyclical   cello   "
-	Returns: "  konkoktion   konvalesense   siklikal   selo   "
-	Beware of extra spaces.
-	5)	
-	    	
-			7
-			""
-			Returns: ""
-			Don't forget the empty case.
-			6)	
-			    	
-					7
-					"cck xzz aaaaa"
-					Returns: "k z aaaaa"
+	assert new_spelling(7,"  concoction   convalescence   cyclical   cello   ") == "  konkoktion   konvalesense   siklikal   selo   "
 
+	assert new_spelling(7,"") == ""
+
+	assert new_spelling(7,"cck xzz aaaaa") == "k z aaaaa"
