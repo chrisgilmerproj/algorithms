@@ -37,14 +37,14 @@ class rbtree(object):
 				x = x.right
 		return x
 
-	def minimum(self, key, x=None):
+	def minimum(self, x=None):
 		if None == x:
 			x = self.root
 		while x.left != self.nil:
 			x = x.left
 		return x
 		
-	def maximum(self, key, x=None):
+	def maximum(self, x=None):
 		if None == x:
 			x = self.root
 		while x.right != self.nil:
@@ -75,6 +75,36 @@ class rbtree(object):
 		z._red = True
 		self._insert_fixup(z)
 	
+	def delete_key(self, key):
+		z = self.search(key)
+		self.delete_node(z)
+
+	def delete_node(self, z):
+		y = z
+		y.orig = y.red
+		if z.left == self.nil:
+			x = z.right
+			self._transplant(z,z.right)
+		elif z.right == self.nil:
+			x = z.left
+			self._transplant(z,z.left)
+		else:
+			y = self.minimum(x=z.right)
+			y.orig = y.red
+			x = y.right
+			if y.p == z:
+				x._p = y
+			else:
+				self._transplant(y,y.right)
+				y._right = z.right
+				y.right._p = y
+			self._transplant(z,y)
+			y._left = z.left
+			y.left._p = y
+			y._red = z.red
+		if not y.orig:
+			self._delete_fixup(x)
+
 	def _insert_fixup(z):
 		while z.p.red:
 			if z.p == z.p.p.left:
@@ -103,6 +133,61 @@ class rbtree(object):
                     z.p.p._red = True
                     self._left_rotate(z.p.p)
         self.root._red = False
+
+	def _transplant(u,v):
+		if u.p == self.nil:
+			self._root = v
+		elif u == u.p.left:
+			u.p._left = v
+		else:
+			u.p._right = v
+		v._p = u.p
+
+	def _delete_fixup(x):
+		while x != self.root and not x.red:
+			if x == x.p.left:
+				w = x.p.right
+				if w.red:
+					w._red = False
+					x.p._red = True
+					self._left_rotate(x.p)
+					w = x.p.right
+				if not w.left.red and not w.right.red:
+					w._red = True
+					x = x.p
+				else:
+					if not w.right.red:
+						w.left._red = False
+						w._red = True
+						self._right_rotate(w)
+						w = x.p.right
+					w._red = x.p.red
+					x.p._red = False
+					w.right._red = False
+					self._left_rotate(x.p)
+					x = self.root
+			else:
+				w = x.p.left
+				if w.red:
+					w._red = False
+					x.p._red = True
+					self._right_rotate(x.p)
+					w = x.p.left
+				if not w.right.red and not w.left.red:
+					w._red = True
+					x = x.p
+				else:
+					if not w.left.red:
+						w.right._red = False
+						w._red = True
+						self._left_rotate(w)
+						w = x.p.left
+					w._red = x.p.red
+					x.p._red = False
+					w.left._red = False
+					self._right_rotate(x.p)
+					x = self.root
+		x._red = False
 
 	def _left_rotate(self,x):
 		y = x.right
@@ -133,5 +218,4 @@ class rbtree(object):
 			y.p._left = x
 		x._right = y
 		y._p = x
-	
-	
+
