@@ -37,6 +37,20 @@ class rbtree(object):
 				x = x.right
 		return x
 
+	def minimum(self, key, x=None):
+		if None == x:
+			x = self.root
+		while x.left != self.nil:
+			x = x.left
+		return x
+		
+	def maximum(self, key, x=None):
+		if None == x:
+			x = self.root
+		while x.right != self.nil:
+			x = x.right
+		return x
+
 	def insert_key(self, key):
 		self.insert_node(rbnode(key=key))
 	
