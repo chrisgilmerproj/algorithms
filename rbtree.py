@@ -27,6 +27,16 @@ class rbtree(object):
 	nil  = property(fget=lambda self: self._nil,  doc="The tree's nil node")
 	root = property(fget=lambda self: self._root, doc="The tree's root node")
 
+	def search(self, key, x=None):
+		if None == x:
+			x = self.root
+		while x != self.nil and key != x.key:
+			if key < x.key:
+				x = x.left
+			else:
+				x = x.right
+		return x
+
 	def insert_key(self, key):
 		self.insert_node(rbnode(key=key))
 	
