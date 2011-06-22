@@ -105,7 +105,7 @@ class rbtree(object):
 		if not y.orig:
 			self._delete_fixup(x)
 
-	def _insert_fixup(z):
+	def _insert_fixup(self,z):
 		while z.p.red:
 			if z.p == z.p.p.left:
 				y = z.p.p.right
@@ -119,20 +119,20 @@ class rbtree(object):
 						z = z.p
 						self._left_rotate(z)
 			else:
-                y = z.p.p.left
-                if y.red:
-                    z.p._red = False
-                    y._red = False
-                    z.p.p._red = True
-                    z = z.p.p
-                else:
-                    if z == z.p.left:
-                        z = z.p
-                        self._right_rotate(z)
-                    z.p._red = False
-                    z.p.p._red = True
-                    self._left_rotate(z.p.p)
-        self.root._red = False
+				y = z.p.p.left
+				if y.red:
+					z.p._red = False
+					y._red = False
+					z.p.p._red = True
+					z = z.p.p
+				else:
+					if z == z.p.left:
+						z = z.p
+						self._right_rotate(z)
+					z.p._red = False
+					z.p.p._red = True
+					self._left_rotate(z.p.p)
+		self.root._red = False
 
 	def _transplant(u,v):
 		if u.p == self.nil:
