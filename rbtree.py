@@ -65,9 +65,9 @@ class rbtree(object):
 
 	def _print_tree(self, x, tree_list, level=0):
 		if len(tree_list) > level+1:
-			tree_list[level].append(x and x.key or None)
+			tree_list[level].append(x and (x.key,x.red) or None)
 		else:
-			tree_list.insert(level,[x])
+			tree_list.insert(level,[x and (x.key,x.red) or None])
 		if x:
 			self._print_tree(x.left,  tree_list, level=level+1)
 			self._print_tree(x.right, tree_list, level=level+1)
