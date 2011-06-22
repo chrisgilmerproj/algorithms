@@ -28,6 +28,7 @@ class rbtree(object):
 	root = property(fget=lambda self: self._root, doc="The tree's root node")
 
 	def search(self, key, x=None):
+		""" Search for node with key """
 		if None == x:
 			x = self.root
 		while x != self.nil and key != x.key:
@@ -38,6 +39,7 @@ class rbtree(object):
 		return x
 
 	def minimum(self, x=None):
+		""" Return node with minimum value """
 		if None == x:
 			x = self.root
 		while x.left != self.nil:
@@ -45,6 +47,7 @@ class rbtree(object):
 		return x
 		
 	def maximum(self, x=None):
+		""" Return node with maximum value """
 		if None == x:
 			x = self.root
 		while x.right != self.nil:
@@ -52,6 +55,7 @@ class rbtree(object):
 		return x
 
 	def print_tree(self, x=None):
+		""" Print the tree nodes as a list of lists"""
 		if None == x:
 			x = self.root
 		tree_list = []
@@ -69,9 +73,11 @@ class rbtree(object):
 			self._print_tree(x.right, tree_list, level=level+1)
 
 	def insert_key(self, key):
+		""" Insert a key into the tree """
 		self.insert_node(rbnode(key=key))
 	
 	def insert_node(self, z):
+		""" Insert a node into the tree """
 		y = self.nil
 		x = self.root
 		while x != self.nil:
@@ -93,10 +99,12 @@ class rbtree(object):
 		self._insert_fixup(z)
 	
 	def delete_key(self, key):
+		""" Delete a node with a given key """
 		z = self.search(key)
 		self.delete_node(z)
 
 	def delete_node(self, z):
+		""" Delete a given node """
 		y = z
 		y.orig = y.red
 		if z.left == self.nil:
